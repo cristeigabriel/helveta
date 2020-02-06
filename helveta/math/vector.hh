@@ -88,28 +88,28 @@ template <class T> struct vec3_t {
   }
 
   // handle adding
-  constexpr vec3_t operator+(const vec3_t &rhs) noexcept {
+  constexpr vec3_t &operator+(const vec3_t &rhs) noexcept {
 
     // return value handled as array of results into a new vector
     return vec3_t(this->x + rhs.x, this->y + rhs.y, this->z + rhs.z);
   }
 
   // handle substracting
-  constexpr vec3_t operator-(const vec3_t &rhs) noexcept {
+  constexpr vec3_t &operator-(const vec3_t &rhs) noexcept {
 
     // return value handled as array of results into a new vector
     return vec3_t(this->x - rhs.x, this->y - rhs.y, this->z - rhs.z);
   }
 
   // handle multiplying
-  constexpr vec3_t operator*(const T &rhs) noexcept {
+  constexpr vec3_t &operator*(const T &rhs) noexcept {
 
     // we return a new vector with our new values
     return vec3_t(this->x * rhs.x, this->y * rhs.y, this->z * rhs.z);
   }
 
   // handle divisions
-  constexpr vec3_t operator/(const T &rhs) noexcept {
+  constexpr vec3_t &operator/(const T &rhs) noexcept {
 
     // we return a new vector with our new values
     return vec3_t(this->x / rhs.x, this->y / rhs.y, this->z / rhs.z);
@@ -239,28 +239,28 @@ template <class T> struct vec2_t {
   }
 
   // handle adding
-  constexpr vec2_t operator+(const vec2_t &rhs) noexcept {
+  constexpr vec2_t &operator+(const vec2_t &rhs) noexcept {
 
     // return value handled as array of results into a new vector
     return vec2_t(this->x + rhs.x, this->y + rhs.y);
   }
 
   // handle substracting
-  constexpr vec2_t operator-(const vec2_t &rhs) noexcept {
+  constexpr vec2_t &operator-(const vec2_t &rhs) noexcept {
 
     // return value handled as array of results into a new vector
     return vec2_t(this->x - rhs.x, this->y - rhs.y);
   }
 
   // handle multiplying
-  constexpr vec2_t operator*(const T &rhs) noexcept {
+  constexpr vec2_t &operator*(const T &rhs) noexcept {
 
     // we return a new vector with our new values
     return vec2_t(this->x * rhs.x, this->y * rhs.y);
   }
 
   // handle divisions
-  constexpr vec2_t operator/(const T &rhs) noexcept {
+  constexpr vec2_t &operator/(const T &rhs) noexcept {
 
     // we return a new vector with our new values
     return vec2_t(this->x / rhs.x, this->y / rhs.y);
