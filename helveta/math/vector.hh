@@ -4,7 +4,8 @@
         *purpose: multi-purpose shared library for windows, made to be submodule for projects
         *written by: Cristei Gabriel-Marian
         *licensing: MIT License
-
+       
+        *file description: the vector class used in helveta.
 */
 
 namespace util {
