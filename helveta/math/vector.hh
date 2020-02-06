@@ -1,8 +1,9 @@
 /*
 
         *project name: helveta
-        *purpose: multi-purpose shared library for windows, made to be submodule
-   for projects *written by: Cristei Gabriel-Marian *licensing: MIT License
+        *purpose: multi-purpose shared library for windows, made to be submodule for projects
+        *written by: Cristei Gabriel-Marian
+        *licensing: MIT License
 
 */
 
