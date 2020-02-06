@@ -190,7 +190,7 @@ template <class T> struct vec2_t {
 
   constexpr vec2_t(const vec2_t &vec) : x(vec.x), y(vec.y) {}
 
-  constexpr bool is_valid() noexcept {
+  constexpr bool is_valid() noexcept(false) {
 
     // return validity state
     return std::isfinite(this->x) && std::isfinite(this->y);
