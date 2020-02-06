@@ -19,5 +19,5 @@
 
 ### 📚 Contribution:
 #
-📚 Helveta is an open-soruce project that appreciates contribution. You can contribute by participating in the writing of the Wiki page, or by making pull-requests to suggest changes. Pull requests will be manually reviewed by @cristeigabriel. Financial support will become available as Helveta becomes mature.
+Helveta is an open-soruce project that appreciates contribution. You can contribute by participating in the writing of the Wiki page, or by making pull-requests to suggest changes. Pull requests will be manually reviewed by @cristeigabriel. Financial support will become available as Helveta becomes mature.
 #
