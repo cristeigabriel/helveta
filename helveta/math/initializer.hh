@@ -14,7 +14,6 @@
 #include <algorithm>
 #include <iostream>
 #include <math.h>
-#include <cmath>
 
 // library files
 #include "vector.hh"
