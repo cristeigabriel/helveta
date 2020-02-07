@@ -12,6 +12,7 @@
 #
 - Math
   - Vector class
+  - Matrix class
 # 
 
 
