@@ -98,7 +98,7 @@ struct matrix4x4_t {
     return a;
   }
 
-  constexpr matrix4x4_t scale(const util::vec3_t<float> &sca) {
+  constexpr matrix4x4_t scale(const util::vec3_t<float> &sca) noexcept {
 
     // class derrived object
     matrix4x4_t a = matrix4x4_t(1.f);
