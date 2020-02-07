@@ -49,7 +49,7 @@ struct matrix4x4_t {
     return res;
   }
 
-  constexpr matrix4x4_t perspective(const float &fov, const float &ratio,
+  matrix4x4_t perspective(const float &fov, const float &ratio,
                                     const float &near,
                                     const float &far) noexcept {
 
@@ -71,7 +71,7 @@ struct matrix4x4_t {
     return res;
   }
 
-  constexpr matrix4x4_t rotation(const float &angle,
+  matrix4x4_t rotation(const float &angle,
                                  const util::vec3_t<float> &axis) noexcept {
 
     // class derrived object
