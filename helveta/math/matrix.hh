@@ -76,6 +76,7 @@ struct matrix4x4_t {
 
     // class derrived object
     matrix4x4_t a = matrix4x4_t(1.f);
+         
     float ang = DEG2RAD(angle);
 
     float cos = std::cos(ang);
