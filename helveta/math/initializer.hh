@@ -17,3 +17,4 @@
 
 // library files
 #include "vector.hh"
+#include "matrix.hh"
