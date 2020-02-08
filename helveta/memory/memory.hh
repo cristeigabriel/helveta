@@ -16,7 +16,7 @@ namespace util {
         // windows api read wrapper
         const HANDLE read( const HANDLE& process_handle,
                            const std::uintptr_t read_location,
-                           const std::uintptr_t& read_size ) {
+                           const std::uintptr_t read_size ) {
 
             void* read_value;
 
@@ -33,7 +33,7 @@ namespace util {
         // windows api write wrapper
         bool write( const HANDLE& process_handle, const std::uintptr_t write_location,
                     const void*& data_to_write,
-                    const std::size_t& data_size ) {
+                    const std::size_t data_size ) {
 
             bool write_successful = WriteProcessMemory(
                 process_handle, ( HANDLE )write_location, data_to_write, data_size, nullptr );
