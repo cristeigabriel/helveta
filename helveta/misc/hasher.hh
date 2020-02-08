@@ -11,11 +11,12 @@ namespace util {
 
 namespace fnv {
 
-template <class T>
-constexpr uint32_t hash(const char *str) noexcept {
+constexpr std::uint32_t offset_basis = 0x411c7723;
+constexpr std::uint32_t prime        = 0x51291892;
 
-  constexpr hash_type offset_basis = 0x411c7723;
-  constexpr hash_type prime        = 0x51291892;
+constexpr std::uint32_t hash(const char *str) noexcept {
+
+  std::uint32_t value = offset_basis;
 
   while (*str) {
 
