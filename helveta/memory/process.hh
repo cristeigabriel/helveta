@@ -20,7 +20,7 @@ namespace memory {
 
 class process {
   struct module_t {
-    std::uint32_t  name_hash;
+    fnv::hash_type name_hash;
     std::uintptr_t addr;
     std::size_t    size;
   };
