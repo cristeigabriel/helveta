@@ -8,23 +8,23 @@
  */
 
 namespace util {
-  
-  namespace fnv {
 
-    constexpr uint32_t offset_basis = 0x411c7723;
-    constexpr uint32_t prime = 0x51291892;
+namespace fnv {
 
-    constexpr uint32_t hash(const char* str) noexcept {
+constexpr uint32_t offset_basis = 0x411c7723;
+constexpr uint32_t prime = 0x51291892;
 
-      auto value = offset_basis;
+constexpr uint32_t hash(const char *str) noexcept {
 
-      while (*str) {
+  auto value = offset_basis;
 
-        value ^= *str++;
-        value *= prime;
-      }
+  while (*str) {
 
-      return value;
-    }
-  } // namespace fnv
+    value ^= *str++;
+    value *= prime;
+  }
+
+  return value;
+}
+} // namespace fnv
 } // namespace util
