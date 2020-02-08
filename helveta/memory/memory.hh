@@ -1,7 +1,7 @@
 /*
 *project name: helveta
-*purpose: multi-purpose shared library for windows, made to be submodule for projects 
-*written by: Cristei Gabriel-Marian 
+*purpose: multi-purpose shared library for windows, made to be submodule for projects
+*written by: Cristei Gabriel-Marian [ + thanks to Laxol for advising me. ]
 *licensing: MIT License
 
 *file description: internal and external memory handler
@@ -11,45 +11,31 @@
 
 namespace util {
 
-namespace memory {
+    namespace memory {
 
-namespace internal {
+        // windows api read wrapper
+        const HANDLE read( const HANDLE& process_handle,
+                           const std::uintptr_t read_location,
+                           const std::uintptr_t& read_size ) {
 
-template <typename T> T read(std::uintptr_t const addr) noexcept {
+            void* read_value;
 
-  return *reinterpret_cast<T *>(addr);
-}
+            if ( !ReadProcessMemory( process_handle, ( HANDLE )read_location, &read_value,
+                 read_size, nullptr ) ) {
 
-template <typename T> T write(std::uintptr_t const addr, T val) noexcept {
+                return nullptr;
+            }
+        }
 
-  return *reinterpret_cast<T *>(addr) = val;
-}
-} // namespace internal
+        // windows api write wrapper
+        bool write( const HANDLE& process_handle, const std::uintptr_t write_location,
+                    const void*& data_to_write,
+                    const std::size_t& data_size ) {
 
-namespace external {
+            bool write_successful = WriteProcessMemory(
+                process_handle, ( HANDLE )write_location, data_to_write, data_size, nullptr );
 
-const void *read(const HANDLE &process_handle,
-                 const std::uintptr_t &read_location,
-                 const std::uintptr_t &read_size) noexcept(false) {
-
-  void *read_value;
-
-  if (!ReadProcessMemory(process_handle, (void *)read_location, &read_value,
-                         read_size, 0)) {
-
-    return 0;
-  }
-}
-
-bool write(const HANDLE &process_handle, const std::uintptr_t &write_location,
-           const void *&data_to_write,
-           const std::size_t &data_size) noexcept(false) {
-
-  bool write_successful = WriteProcessMemory(
-      process_handle, (void *)write_location, data_to_write, data_size, 0);
-
-  return write_successful;
-}
-} // namespace external
-} // namespace memory
+            return write_successful;
+        }
+    } // namespace memory
 } // namespace util
