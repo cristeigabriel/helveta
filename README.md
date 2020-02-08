@@ -10,6 +10,10 @@
 
 ### 📝 Feature list (under construction):
 #
+- General
+  - Helveta-purposed loggers (log, warning, error)
+  - Utilitarian math functions
+
 - Math
   - Vector class
   - Matrix class
