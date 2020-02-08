@@ -12,6 +12,7 @@
 #
 - General
   - Helveta-purposed loggers (log, warning, error)
+  - Compile-time config class for Helveta-purposed variables
   - Utilitarian math functions
 
 - Math
@@ -19,7 +20,7 @@
   - Matrix class
   
 - Misc
-  - Hasher (Currently only FNV-1a)
+  - Hasher (Currently only FNV-1a) for multiple datatypes (string_view, wstring_view, char, etc...)
   
 - Memory
   - Internal Read/Write handler/wrapper
