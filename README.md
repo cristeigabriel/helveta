@@ -37,8 +37,9 @@ Helveta is an open-source project that appreciates contribution. You can contrib
 
 ### ❤️ Contributors:
 #
-@T0b1-iOS - memory.hh [ WINAPI Memory Read/Write Handler improvement ]
-          - process.cc [ Process/Handle wrapper ]
-          - process.hh [ Process/Handle wrapper ]
+@T0b1-iOS 
+- memory.hh [ WINAPI Memory Read/Write Handler improvement ]
+- process.cc [ Process/Handle wrapper ]
+- process.hh [ Process/Handle wrapper ]
 
 #
