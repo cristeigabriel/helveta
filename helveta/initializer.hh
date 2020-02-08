@@ -22,9 +22,13 @@ constexpr float PI = 3.141593f;
 #include <iostream>
 #include <math.h>
 #include <optional>
+#include <vector>
 
 // library files
 #include "math/vector.hh"
 #include "math/matrix.hh"
 #include "memory/memory.hh"
 #include "misc/hasher.hh"
+
+// TODO: make this optional?
+#include "memory/process.hh"
