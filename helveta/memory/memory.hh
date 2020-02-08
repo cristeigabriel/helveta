@@ -1,7 +1,8 @@
 /*
 *project name: helveta
 *purpose: multi-purpose shared library for windows, made to be submodule for projects 
-*written by: Cristei Gabriel-Marian + Laxol *contributors: @T0b1-iOS
+*written by: Cristei Gabriel-Marian + Laxol 
+*contributors: @T0b1-iOS
 *licensing: MIT License
 
 *file description: internal and external memory handler
@@ -13,7 +14,7 @@
 #undef NOMINMAX
 #undef WIN32_LEAN_AND_MEAN
 
-namespace util {
+namespace helveta {
 
 namespace memory {
 
@@ -59,4 +60,4 @@ bool write(const HANDLE process_handle, const std::uintptr_t address,
   return write(process_handle, address, &var, sizeof(type));
 }
 } // namespace memory
-} // namespace util
+} // namespace helveta

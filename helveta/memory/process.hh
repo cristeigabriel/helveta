@@ -1,8 +1,9 @@
 /*
 *project name: helveta
-*purpose: multi-purpose shared library for windows, made to be submodule for
-projects *written by: Cristei Gabriel-Marian [ + thanks to Laxol for advising
-me. ] *licensing: MIT License
+*purpose: multi-purpose shared library for windows, made to be submodule for projects 
+*written by: Cristei Gabriel
+*file written by: T0b1-iOS
+*licensing: MIT License
 
 *file description: external process wrapper
 */
@@ -14,7 +15,7 @@ me. ] *licensing: MIT License
 #undef NOMINMAX
 #undef WIN32_LEAN_AND_MEAN
 
-namespace util {
+namespace helveta {
 namespace memory {
 class process {
   struct module_t {
@@ -53,9 +54,10 @@ public:
 
   void detach() {
     if (_handle && !_custom_handle) CloseHandle(_handle);
-    _handle = nullptr;
-    _id     = 0u;
-    _x64    = false;
+    _custom_handle = false;
+    _handle        = nullptr;
+    _id            = 0u;
+    _x64           = false;
     _mod_list.clear();
   }
 
@@ -93,10 +95,10 @@ public:
     return write(address, &var, sizeof(type));
   }
 
-  // Getter
-  [[nodiscard]] auto handle() const noexcept { return _handle; }
-  [[nodiscard]] auto id() const noexcept { return _id; }
-  [[nodiscard]] auto x64() const noexcept { return _x64; }
+  // getter
+  [[nodiscard]] HANDLE        handle() const noexcept { return _handle; }
+  [[nodiscard]] std::uint32_t id() const noexcept { return _id; }
+  [[nodiscard]] bool          x64() const noexcept { return _x64; }
 
   [[nodiscard]] const auto &module_list() const noexcept { return _mod_list; }
 
@@ -112,4 +114,4 @@ private:
   std::vector<module_t> _mod_list{};
 };
 } // namespace memory
-} // namespace util
+} // namespace helveta

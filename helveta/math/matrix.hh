@@ -7,7 +7,7 @@
 *file description: matrix class, base code credits to Octav Adrian
 */
 
-namespace util {
+namespace helveta {
 
 struct matrix4x4_t {
 
@@ -34,7 +34,7 @@ struct matrix4x4_t {
                               const float &top, const float &bottom,
                               const float &near, const float &far) noexcept {
     // class derrived object
-    auto res = matrix4x4_t();
+    matrix4x4_t res = matrix4x4_t();
 
     res.elements.at(0)  = 2.f / (right - left);
     res.elements.at(5)  = 2.f / (top - bottom);
@@ -71,7 +71,7 @@ struct matrix4x4_t {
   }
 
   matrix4x4_t rotation(const float &              angle,
-                       const util::vec3_t<float> &axis) noexcept {
+                       const helveta::vec3_t<float> &axis) noexcept {
 
     // class derrived object
     matrix4x4_t a   = matrix4x4_t(1.f);
@@ -97,7 +97,7 @@ struct matrix4x4_t {
     return a;
   }
 
-  constexpr matrix4x4_t scale(const util::vec3_t<float> &sca) noexcept {
+  constexpr matrix4x4_t scale(const helveta::vec3_t<float> &sca) noexcept {
 
     // class derrived object
     matrix4x4_t a = matrix4x4_t(1.f);
@@ -161,4 +161,4 @@ struct matrix4x4_t {
   }
 };
 
-} // namespace util
+} // namespace helveta

@@ -6,7 +6,7 @@ projects *written by: Cristei Gabriel-Marian *licensing: MIT License
 *file description: fnv-1a algorithm hasher, at runtime
 */
 
-namespace util {
+namespace helveta {
 
 namespace fnv {
 
@@ -30,6 +30,7 @@ constexpr std::uint32_t hash_view(const std::string_view str) noexcept {
   std::uint32_t value = offset_basis;
 
   for (const auto c : str) {
+
     value ^= c;
     value *= prime;
   }
@@ -37,4 +38,4 @@ constexpr std::uint32_t hash_view(const std::string_view str) noexcept {
   return value;
 }
 } // namespace fnv
-} // namespace util
+} // namespace helveta

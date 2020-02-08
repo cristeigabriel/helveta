@@ -7,7 +7,7 @@
 *file description: vector class used in helveta
 */
 
-namespace util {
+namespace helveta {
 
 template <class T>
 struct vec3_t {
@@ -324,4 +324,4 @@ struct vec2_t {
     return *((T *)this + index);
   }
 };
-} // namespace util
+} // namespace helveta
