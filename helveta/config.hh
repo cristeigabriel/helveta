@@ -7,9 +7,12 @@
 *file description: config
 */
 
-namespace helveta::config {
+namespace helveta {
+
+namespace config {
 
 // use a 64bit data-type for the fnv-1a hashing algorithm
 constexpr bool FNV_64BIT = false;
 // ...
-} // namespace helveta::config
+} // namespace config
+} // namespace helveta
