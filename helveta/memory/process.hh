@@ -1,9 +1,8 @@
 /*
 *project name: helveta
-*purpose: multi-purpose shared library for windows, made to be submodule for projects 
-*written by: Cristei Gabriel
-*file written by: T0b1-iOS
-*licensing: MIT License
+*purpose: multi-purpose shared library for windows, made to be submodule for
+projects *written by: Cristei Gabriel *file written by: T0b1-iOS *licensing: MIT
+License
 
 *file description: external process wrapper
 */
@@ -16,7 +15,9 @@
 #undef WIN32_LEAN_AND_MEAN
 
 namespace helveta {
+
 namespace memory {
+
 class process {
   struct module_t {
     std::uint32_t  name_hash;
@@ -27,10 +28,12 @@ class process {
 public:
   process() = default;
   ~process() {
+
     if (_handle && !_custom_handle) CloseHandle(_handle);
   }
 
   void attach(const HANDLE handle, const std::uint32_t id) {
+
     _custom_handle = true;
     _handle        = handle;
     _id            = id;
@@ -38,6 +41,7 @@ public:
   }
 
   bool attach(const std::uint32_t id) {
+
     _handle = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_OPERATION |
                               PROCESS_VM_READ | PROCESS_VM_WRITE,
                           false, id);
@@ -53,6 +57,7 @@ public:
   bool attach(const std::string_view name);
 
   void detach() {
+
     if (_handle && !_custom_handle) CloseHandle(_handle);
     _custom_handle = false;
     _handle        = nullptr;
@@ -81,17 +86,20 @@ public:
 
   template <typename type>
   bool read(const std::uintptr_t address, type &var) const {
+
     return read(address, &var, sizeof(type));
   }
 
   // read not null
   template <typename type>
   bool read_nn(const std::uintptr_t address, type &var) const {
+
     return read(address, &var, sizeof(type)) && (var != 0);
   }
 
   template <typename type>
   bool write(const std::uintptr_t address, const type &var) const {
+
     return write(address, &var, sizeof(type));
   }
 

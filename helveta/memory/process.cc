@@ -14,8 +14,11 @@
 using namespace helveta::memory;
 
 struct handle_wrapper {
+
   explicit handle_wrapper(const HANDLE handle) : _handle(handle) {}
+
   ~handle_wrapper() {
+
     if (_handle) CloseHandle(_handle);
   }
 
@@ -29,6 +32,7 @@ protected:
 };
 
 bool process::attach(const std::string_view name) {
+
   const handle_wrapper snap_handle =
       handle_wrapper{CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0)};
   if (!snap_handle.get()) return false;
@@ -39,6 +43,7 @@ bool process::attach(const std::string_view name) {
 
   const auto name_hash = fnv::hash_view(name);
   do {
+
     const auto proc_name = std::string_view{proc_entry.szExeFile};
 
     if (fnv::hash_view(proc_name) == name_hash)
@@ -50,6 +55,7 @@ bool process::attach(const std::string_view name) {
 }
 
 std::uintptr_t process::find_module(const std::string_view name) {
+
   if (_mod_list.empty()) init_module_list();
 
   const auto name_hash = fnv::hash_view(name);
@@ -64,6 +70,7 @@ std::uintptr_t process::find_module(const std::string_view name) {
 }
 
 void process::update_arch() {
+
   BOOL wow64;
   if (!IsWow64Process(_handle, &wow64)) return;
 
@@ -71,6 +78,7 @@ void process::update_arch() {
 }
 
 void process::init_module_list() {
+
   const handle_wrapper snap_handle = handle_wrapper{CreateToolhelp32Snapshot(
       _x64 ? TH32CS_SNAPMODULE : TH32CS_SNAPMODULE32, _id)};
   if (!snap_handle.get()) return;
@@ -81,6 +89,7 @@ void process::init_module_list() {
   _mod_list.clear();
 
   do {
+
     auto module      = module_t{};
     module.name_hash = fnv::hash(mod_entry.szExePath);
     module.addr      = reinterpret_cast<std::uintptr_t>(mod_entry.modBaseAddr);
