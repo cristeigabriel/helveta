@@ -33,3 +33,8 @@
 #
 Helveta is an open-source project that appreciates contribution. You can contribute by participating in the writing of the Wiki page, or by making pull-requests to suggest changes. Pull requests will be manually reviewed by @cristeigabriel. Financial support will become available as Helveta becomes mature.
 #
+
+### ❤️ Contributors:
+#
+@T0b1-iOS - memory.hh [ WINAPI Memory Read/Write Handler improvement ]
+#
