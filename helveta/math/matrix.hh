@@ -1,11 +1,11 @@
 /*
-        *project name: helveta
-        *purpose: multi-purpose shared library for windows, made to be submodule for projects 
-        *written by: Cristei Gabriel-Marian [& Octav Adrian]
-        *licensing: MIT License
+ *project name: helveta
+ *purpose: multi-purpose shared library for windows, made to be submodule for projects
+ *written by: Cristei Gabriel-Marian [& Octav Adrian] 
+ *licensing: MIT License
 
-        *file description: matrix class, base code credits to Octav Adrian
-*/
+ *file description: matrix class, base code credits to Octav Adrian
+ */
 
 namespace util {
 
@@ -34,7 +34,7 @@ struct matrix4x4_t {
                               const float &top, const float &bottom,
                               const float &near, const float &far) noexcept {
     // class derrived object
-    matrix4x4_t res = matrix4x4_t();
+    auto res = matrix4x4_t();
 
     res.elements.at(0) = 2.f / (right - left);
     res.elements.at(5) = 2.f / (top - bottom);
@@ -50,8 +50,7 @@ struct matrix4x4_t {
   }
 
   matrix4x4_t perspective(const float &fov, const float &ratio,
-                                    const float &near,
-                                    const float &far) noexcept {
+                          const float &near, const float &far) noexcept {
 
     // class derrived object
     matrix4x4_t res = matrix4x4_t();
@@ -72,11 +71,10 @@ struct matrix4x4_t {
   }
 
   matrix4x4_t rotation(const float &angle,
-                                 const util::vec3_t<float> &axis) noexcept {
+                       const util::vec3_t<float> &axis) noexcept {
 
     // class derrived object
     matrix4x4_t a = matrix4x4_t(1.f);
-         
     float ang = DEG2RAD(angle);
 
     float cos = std::cos(ang);

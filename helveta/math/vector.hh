@@ -1,12 +1,12 @@
 /*
+ *project name: helveta
+ *purpose: multi-purpose shared library for windows, made to be submodule for projects
+ *written by: Cristei Gabriel-Marian
+ *licensing: MIT License
 
-        *project name: helveta
-        *purpose: multi-purpose shared library for windows, made to be submodule for projects
-        *written by: Cristei Gabriel-Marian
-        *licensing: MIT License
-       
-        *file description: the vector class used in helveta.
-*/
+ *file description: vector class used in helveta
+ */
+
 
 namespace util {
 
@@ -190,7 +190,7 @@ template <class T> struct vec2_t {
 
   constexpr vec2_t(const vec2_t &vec) : x(vec.x), y(vec.y) {}
 
-  constexpr bool is_valid() noexcept(false) {
+  constexpr bool is_valid() noexcept {
 
     // return validity state
     return std::isfinite(this->x) && std::isfinite(this->y);
