@@ -24,6 +24,9 @@ constexpr float PI = 3.141593f;
 #include <optional>
 #include <vector>
 
+// config
+#include "config.hh"
+
 // library files
 #include "math/vector.hh"
 #include "math/matrix.hh"
