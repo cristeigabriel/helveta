@@ -13,8 +13,13 @@
 - Math
   - Vector class
   - Matrix class
+  
 - Misc
   - Hasher (Currently only FNV-1a)
+  
+- Memory
+  - Internal Read/Write handler/wrapper
+  - External Read/Write handler/wrapper
 # 
 
 
