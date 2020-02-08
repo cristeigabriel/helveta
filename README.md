@@ -13,6 +13,8 @@
 - Math
   - Vector class
   - Matrix class
+- Misc
+  - Hasher (Currently only FNV-1a)
 # 
 
 
