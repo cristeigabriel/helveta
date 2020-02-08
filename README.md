@@ -41,5 +41,6 @@ Helveta is an open-source project that appreciates contribution. You can contrib
 - memory.hh [ WINAPI Memory Read/Write Handler improvement ]
 - process.cc [ Process/Handle wrapper ]
 - process.hh [ Process/Handle wrapper ]
-
+@swoopae
+- matrix.hh [ Matrix class base ]
 #
