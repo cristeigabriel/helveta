@@ -7,38 +7,58 @@
 *file description: internal and external memory handler
 */
 
-#include <Windows.h>
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+#include <windows.h>
+#undef NOMINMAX
+#undef WIN32_LEAN_AND_MEAN
 
 namespace util {
 
     namespace memory {
 
         // windows api read wrapper
-        const HANDLE read( const HANDLE& process_handle,
+        inline bool read( const HANDLE process_handle,
                            const std::uintptr_t read_location,
-                           const std::uintptr_t read_size ) {
+                           void* buffer,
+                           const std::size_t buffer_size ) {
 
-            void* read_value;
-
-            if ( !ReadProcessMemory( process_handle, ( HANDLE )read_location, &read_value,
-                 read_size, nullptr ) ) {
-
-                static_assert( "[HELVETA] Failed to read memory." );
-                return nullptr;
-            }
-
-            return read_value;
+            return ReadProcessMemory( process_handle, reinterpret_cast< LPCVOID >( read_location ), buffer,
+                 buffer_size, nullptr );
         }
 
         // windows api write wrapper
-        bool write( const HANDLE& process_handle, const std::uintptr_t write_location,
-                    const void*& data_to_write,
+        inline bool write( const HANDLE process_handle, const std::uintptr_t write_location,
+                    const void* data_to_write,
                     const std::size_t data_size ) {
 
-            bool write_successful = WriteProcessMemory(
-                process_handle, ( HANDLE )write_location, data_to_write, data_size, nullptr );
+            return WriteProcessMemory(
+                process_handle, reinterpret_cast< LPVOID >( write_location ), data_to_write, data_size, nullptr );
+        }
 
-            return write_successful;
+        template< typename type >
+        bool read( const HANDLE process_handle,
+                    const std::uintptr_t address,
+                    type& var ) {
+
+            return read( process_handle, address, &var, sizeof( type ) );
+        }
+
+        // read_memory not null
+        template< typename type >
+        bool read_nn( const HANDLE process_handle,
+                        const std::uintptr_t address,
+                        type& var ) {
+
+            return read( process_handle, address, &var, sizeof( type ) ) && ( var != 0 );
+        }
+
+        template< typename type >
+        bool write( const HANDLE process_handle,
+                    const std::uintptr_t address,
+                    const type& var ) {
+
+            return write( process_handle, address, &var, sizeof( type ) );
         }
     } // namespace memory
 } // namespace util
