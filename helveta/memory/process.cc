@@ -1,9 +1,8 @@
 /*
 *project name: helveta
-*purpose: multi-purpose shared library for windows, made to be submodule for projects 
-*written by: Cristei Gabriel 
-*file written by: T0b1-iOS 
-*licensing: MIT License
+*purpose: multi-purpose shared library for windows, made to be submodule for
+projects *written by: Cristei Gabriel *file written by: T0b1-iOS *licensing: MIT
+License
 
 *file description: external process wrapper
 */
@@ -37,7 +36,7 @@ bool process::attach(const std::string_view name) {
       handle_wrapper{CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0)};
   if (!snap_handle.get()) return false;
 
-  PROCESSENTRY32W proc_entry = PROCESSENTRY32{sizeof(PROCESSENTRY32)};
+  PROCESSENTRY32 proc_entry{sizeof(PROCESSENTRY32)};
 
   if (!Process32First(snap_handle.get(), &proc_entry)) return false;
 
@@ -83,7 +82,7 @@ void process::init_module_list() {
       _x64 ? TH32CS_SNAPMODULE : TH32CS_SNAPMODULE32, _id)};
   if (!snap_handle.get()) return;
 
-  MODULEENTRY32W mod_entry = MODULEENTRY32{sizeof(MODULEENTRY32)};
+  MODULEENTRY32 mod_entry{sizeof(MODULEENTRY32)};
   if (!Module32First(snap_handle.get(), &mod_entry)) return;
 
   _mod_list.clear();
