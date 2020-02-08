@@ -6,11 +6,6 @@
  *licensing: MIT License
  */
 
-// logging
-#define HELVETA_LOG( log ) std::cerr << "[HELVETA] " << log << std::endl;
-#define HELVETA_WARNING( warning ) std::cerr << "[HELVETA] " << warning << std::endl;
-#define HELVETA_ERROR( error ) std::cerr << "[HELVETA] " << error << std::endl;
-
  // math basics
 constexpr float PI = 3.141593f;
 #define DEG2RAD(DEG) ((float)(DEG) * (180 / PI))

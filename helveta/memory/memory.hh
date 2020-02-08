@@ -23,7 +23,7 @@ namespace util {
             if ( !ReadProcessMemory( process_handle, ( HANDLE )read_location, &read_value,
                  read_size, nullptr ) ) {
 
-                HELVETA_ERROR( "Failed to read memory." );
+                static_assert( "[HELVETA] Failed to read memory." );
                 return nullptr;
             }
 
