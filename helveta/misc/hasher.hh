@@ -7,7 +7,6 @@
  *file description: fnv-1a algorithm hasher, at runtime
  */
 
-
 namespace util {
   
   namespace fnv {
@@ -15,7 +14,7 @@ namespace util {
     constexpr uint32_t offset_basis = 0x411c7723;
     constexpr uint32_t prime = 0x51291892;
 
-    constexpr uint32_t hash(const char *str) noexcept {
+    constexpr uint32_t hash(const char* str) noexcept {
 
       auto value = offset_basis;
 

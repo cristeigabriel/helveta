@@ -12,14 +12,16 @@ constexpr float PI = 3.141593f;
 #define DEG2RAD(DEG) ((float)DEG * (180 / PI))
 #define RAD2DEG(RAD) ((float)RAD * (PI / 180))
 
-
 // STL
+#include <cinttypes>
 #include <algorithm>
 #include <iostream>
 #include <math.h>
+#include <cstdio>
 #include <array>
 
 // library files
 #include "math/vector.hh"
 #include "math/matrix.hh"
 #include "misc/hasher.hh"
+#include "memory/memory.hh"
