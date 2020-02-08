@@ -16,7 +16,7 @@ namespace util {
 
         constexpr uint32_t hash( const char* str ) noexcept {
 
-            auto value = offset_basis;
+            uint32_t value = offset_basis;
 
             while ( *str ) {
 
