@@ -1,8 +1,7 @@
 /*
 *project name: helveta
-*purpose: multi-purpose shared library for windows, made to be submodule for projects 
-*written by: Cristei Gabriel-Marian 
-*licensing: MIT License
+*purpose: multi-purpose shared library for windows, made to be submodule for
+projects *written by: Cristei Gabriel-Marian *licensing: MIT License
 
 *file description: fnv-1a algorithm hasher, at runtime
 */
@@ -21,6 +20,17 @@ constexpr std::uint32_t hash(const char *str) noexcept {
   while (*str) {
 
     value ^= *str++;
+    value *= prime;
+  }
+
+  return value;
+}
+
+constexpr std::uint32_t hash_view(const std::string_view str) noexcept {
+  std::uint32_t value = offset_basis;
+
+  for (const auto c : str) {
+    value ^= c;
     value *= prime;
   }
 
