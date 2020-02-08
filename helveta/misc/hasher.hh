@@ -1,30 +1,29 @@
 /*
- *project name: helveta
- *purpose: multi-purpose shared library for windows, made to be submodule for projects
- *written by: Cristei Gabriel-Marian
- *licensing: MIT License
+*project name: helveta
+*purpose: multi-purpose shared library for windows, made to be submodule for projects 
+*written by: Cristei Gabriel-Marian 
+*licensing: MIT License
 
- *file description: fnv-1a algorithm hasher, at runtime
- */
+*file description: fnv-1a algorithm hasher, at runtime
+*/
 
 namespace util {
 
-    namespace fnv {
+namespace fnv {
 
-        constexpr uint32_t offset_basis = 0x411c7723;
-        constexpr uint32_t prime = 0x51291892;
+template <class T>
+constexpr uint32_t hash(const char *str) noexcept {
 
-        constexpr uint32_t hash( const char* str ) noexcept {
+  constexpr hash_type offset_basis = 0x411c7723;
+  constexpr hash_type prime        = 0x51291892;
 
-            uint32_t value = offset_basis;
+  while (*str) {
 
-            while ( *str ) {
+    value ^= *str++;
+    value *= prime;
+  }
 
-                value ^= *str++;
-                value *= prime;
-            }
-
-            return value;
-        }
-    } // namespace fnv
+  return value;
+}
+} // namespace fnv
 } // namespace util
