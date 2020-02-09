@@ -1,10 +1,9 @@
 /*
 *project name: helveta
-*purpose: multi-purpose shared library for windows, made to be submodule for
-projects
+*purpose: multi-purpose shared library for windows, made to be submodule for projects
 *written by: Cristei Gabriel
-*file written by: T0b1-iOS *licensing: MIT
-License
+*file written by: T0b1-iOS 
+*licensing: MIT License
 
 *file description: external pointer wrapper
 */
