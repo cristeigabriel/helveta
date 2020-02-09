@@ -20,6 +20,7 @@
   
 - Misc
   - Hasher (Currently only FNV-1a) for multiple datatypes (string_view, wstring_view, char, etc...)
+  - Color class
   
 - Memory
   - Internal Read/Write handler/wrapper
