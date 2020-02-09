@@ -325,10 +325,15 @@ struct vec2_t {
   }
 
   // handle arrays
-  constexpr T &operator[](std::size_t index) noexcept {
+  constexpr T &operator[](std::size_t index) {
+
+#ifdef DEBUG
+    assert(index <= 3, "INDEX out of range");
+#endif
+    if (index > 3) { throw std::exception("INDEX out of range"); }
 
     // (datatype)pointer + index
-    return *((T *)this + index);
+    return *(reinterpret_cast<T *>(this) + index);
   }
 };
 } // namespace helveta

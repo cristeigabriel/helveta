@@ -7,7 +7,9 @@
 *file description: fnv-1a algorithm hasher, at runtime
 */
 
-namespace helveta::fnv {
+namespace helveta {
+
+namespace fnv {
 
 using hash_type =
     std::conditional_t<config::FNV_64BIT, std::uint64_t, std::uint32_t>;
@@ -66,4 +68,5 @@ constexpr hash_type hash_view(const view_type str) noexcept {
 
   return value;
 }
-} // namespace helveta::fnv
+} // namespace fnv
+} // namespace helveta

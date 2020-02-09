@@ -95,7 +95,8 @@ void process::init_module_list() {
     module.addr      = reinterpret_cast<std::uintptr_t>(mod_entry.modBaseAddr);
     module.size      = mod_entry.modBaseSize;
 
-    _mod_list.push_back(module);
+    // edited from push_back, @T0b1 you're pushing to a constructor, think of le speed!!!
+    _mod_list.emplace_back(module);
 
   } while (Module32Next(snap_handle.get(), &mod_entry));
 }

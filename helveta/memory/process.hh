@@ -88,20 +88,20 @@ public:
   template <typename type>
   bool read(const std::uintptr_t address, type &var) const {
 
-    return read(address, &var, sizeof(type));
+    return read(address, std::addressof(var), sizeof(type));
   }
 
   // read not null
   template <typename type>
   bool read_nn(const std::uintptr_t address, type &var) const {
 
-    return read(address, &var, sizeof(type)) && (var != 0);
+    return read(address, std::addressof(var), sizeof(type)) && (var != 0);
   }
 
   template <typename type>
   bool write(const std::uintptr_t address, const type &var) const {
 
-    return write(address, &var, sizeof(type));
+    return write(address, std::addressof(var), sizeof(type));
   }
 
   // getter

@@ -70,7 +70,7 @@ struct matrix4x4_t {
     return res;
   }
 
-  matrix4x4_t rotation(const float &              angle,
+  matrix4x4_t rotation(const float &                 angle,
                        const helveta::vec3_t<float> &axis) noexcept {
 
     // class derrived object

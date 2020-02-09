@@ -20,9 +20,11 @@ constexpr float PI = 3.141593f;
 #include <cinttypes>
 #include <cstdio>
 #include <iostream>
-#include <math.h>
+#include <cmath>
+#include <cassert>
 #include <optional>
 #include <vector>
+#include <stdexcept>
 
 // config
 #include "config.hh"
@@ -32,7 +34,8 @@ constexpr float PI = 3.141593f;
 #include "math/matrix.hh"
 #include "memory/memory.hh"
 #include "misc/hasher.hh"
+#include "misc/color.hh"
 
 // TODO: make this optional?
 #include "memory/process.hh"
-#include "memory/pointer.hh"
+// #include "memory/pointer.hh" - waiting for t0b1 to fix

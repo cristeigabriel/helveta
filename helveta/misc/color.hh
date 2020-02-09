@@ -9,7 +9,9 @@
 */
 
 namespace helveta {
+
 namespace color {
+
 template <class T>
 struct color_t {
 
@@ -108,36 +110,40 @@ struct color_t {
 
     if (h < 1) {
 
-      return color_t((unsigned char)(brightness * 255),
-                     (unsigned char)(t * 255), (unsigned char)(p * 255));
+      return color_t(static_cast<unsigned char>(brightness * 255),
+                     static_cast<unsigned char>(t * 255),
+                     static_cast<unsigned char>(p * 255));
     }
     if (h < 2) {
 
-      return color_t((unsigned char)(q * 255),
-                     (unsigned char)(brightness * 255),
-                     (unsigned char)(p * 255));
+      return color_t(static_cast<unsigned char>(q * 255),
+                     static_cast<unsigned char>(brightness * 255),
+                     static_cast<unsigned char>(p * 255));
     }
     if (h < 3) {
 
-      return color_t((unsigned char)(p * 255),
-                     (unsigned char)(brightness * 255),
-                     (unsigned char)(t * 255));
+      return color_t(static_cast<unsigned char>(p * 255),
+                     static_cast<unsigned char>(brightness * 255),
+                     static_cast<unsigned char>(t * 255));
     }
     if (h < 4) {
 
-      return color_t((unsigned char)(p * 255), (unsigned char)(q * 255),
-                     (unsigned char)(brightness * 255));
+      return color_t(static_cast<unsigned char>(p * 255),
+                     static_cast<unsigned char>(q * 255),
+                     static_cast<unsigned char>(brightness * 255));
     }
     if (h < 5) {
 
-      return color_t((unsigned char)(t * 255), (unsigned char)(p * 255),
-                     (unsigned char)(brightness * 255));
+      return color_t(static_cast<unsigned char>(t * 255),
+                     static_cast<unsigned char>(p * 255),
+                     static_cast<unsigned char>(brightness * 255));
     }
 
-    return color_t((unsigned char)(brightness * 255), (unsigned char)(p * 255),
-                   (unsigned char)(q * 255));
+    return color_t(static_cast<unsigned char>(brightness * 255),
+                   static_cast<unsigned char>(p * 255),
+                   static_cast<unsigned char>(q * 255));
   }
-	
+
   // handle adding
   constexpr color_t &operator+(const color_t &rhs) noexcept {
 
@@ -232,10 +238,15 @@ struct color_t {
   }
 
   // handle arrays
-  constexpr T &operator[](std::size_t index) noexcept {
+  constexpr T &operator[](std::size_t index) {
 
+#ifdef DEBUG
+    assert(index <= 3, "INDEX out of range");
+#endif
+    if (index > 3) { throw std::exception("INDEX out of range"); }
+  	
     // (datatype)pointer + index
-    return *((T *)this + index);
+    return *(reinterpret_cast<T *>(this) + index);
   }
 };
 } // namespace color
