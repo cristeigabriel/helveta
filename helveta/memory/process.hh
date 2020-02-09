@@ -111,8 +111,8 @@ public:
 
   [[nodiscard]] const auto &module_list() const noexcept { return _mod_list; }
 
-  template <typename = std::enable_if_t<config::GLOBAL_PROCESS_INSTANCE, int>>
-  static process &get() {
+  template <bool enable = config::GLOBAL_PROCESS_INSTANCE>
+  static process &get(typename std::enable_if_t<enable, int> = 0) {
     static process inst{};
     return inst;
   }
