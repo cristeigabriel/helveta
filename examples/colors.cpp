@@ -5,8 +5,7 @@ int main() {
   helveta::color::color_t<int> _color  = {255, 0, 0};        // red, alpha 255
   helveta::color::color_t<int> __color = {125, 0, 0}; // dark red, alpha 255
 
-  // we are going to get the brightness of color, _color and __color
-  // __color's brightness
+  // we are going to get the brightness of color, _color and __color's brightness
   std::cout << "color : " << color.brightness()
             << " _color : " << _color.brightness()
             << " __color : " << __color.brightness() << std::endl;
