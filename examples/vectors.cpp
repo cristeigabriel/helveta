@@ -1,4 +1,4 @@
-int main() {
+int main(void) {
 
   // randomize seed
   srand(time(NULL));
