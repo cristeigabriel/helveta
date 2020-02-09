@@ -37,6 +37,11 @@
 Helveta is an open-source project that appreciates contribution. You can contribute by participating in the writing of the Wiki page, or by making pull-requests to suggest changes. Pull requests will be manually reviewed by @cristeigabriel. Financial support will become available as Helveta becomes mature.
 #
 
+### 🎒 Examples:
+#
+The example folder holds an example for mostly every function. These will be linked in the official Wiki (once it is posted, currently not). It helps you understand how a function actually works by providing code for up to every function from the structure. If you do a pull request that is big enough to need an example file, please do a pull request that contains one. You **AREN'T** obliged to do so, but it may help everyone, including the developers and simple users of the library.
+#
+
 ### ❤️ Contributors:
 #
 @T0b1-iOS 
