@@ -11,6 +11,7 @@
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 #include <windows.h>
+#include <memory>
 #undef NOMINMAX
 #undef WIN32_LEAN_AND_MEAN
 
@@ -42,7 +43,7 @@ template <typename type>
 bool read(const HANDLE process_handle, const std::uintptr_t address,
           type &var) {
 
-  return read(process_handle, address, &var, sizeof(type));
+  return read(process_handle, address, std::addressof(var), sizeof(type));
 }
 
 // read_memory not null
@@ -50,14 +51,15 @@ template <typename type>
 bool read_nn(const HANDLE process_handle, const std::uintptr_t address,
              type &var) {
 
-  return read(process_handle, address, &var, sizeof(type)) && (var != 0);
+  return read(process_handle, address, std::addressof(var), sizeof(type)) &&
+         (var != 0);
 }
 
 template <typename type>
 bool write(const HANDLE process_handle, const std::uintptr_t address,
            const type &var) {
 
-  return write(process_handle, address, &var, sizeof(type));
+  return write(process_handle, address, std::addressof(var), sizeof(type));
 }
 } // namespace memory
 } // namespace helveta
