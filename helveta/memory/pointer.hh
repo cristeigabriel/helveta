@@ -8,8 +8,10 @@
 *file description: external pointer wrapper
 */
 
-namespace helveta::memory {
+namespace helveta {
 
+namespace memory {
+  
 template <typename type = std::conditional_t<config::PTR_DEF_64BIT,
                                              std::uint64_t, std::uint32_t>,
           bool x64      = config::PTR_DEF_64BIT>
@@ -190,4 +192,5 @@ using str_ptr = basic_str_ptr<char, x64>;
 template <bool x64 = config::PTR_DEF_64BIT>
 using wstr_ptr = basic_str_ptr<wchar_t, x64>;
 
-} // namespace helveta::memory
+} // namespace memory
+} // namespace helveta
