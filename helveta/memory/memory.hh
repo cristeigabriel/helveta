@@ -2,7 +2,7 @@
 *project name: helveta
 *purpose: multi-purpose shared library for windows, made to be submodule for projects 
 *written by: Cristei Gabriel-Marian + Laxol 
-*contributors: @T0b1-iOS
+*contributors: @T0b1-iOS + @mooncaller
 *licensing: MIT License
 
 *file description: internal and external memory handler
