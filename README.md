@@ -11,7 +11,6 @@
 ### 📝 Feature list (under construction):
 #
 - General
-  - Helveta-purposed loggers (log, warning, error)
   - Compile-time config class for Helveta-purposed variables
   - Utilitarian math functions
 
