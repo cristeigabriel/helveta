@@ -25,6 +25,7 @@
   - Internal Read/Write handler/wrapper
   - External Read/Write handler/wrapper
   - Process/Handle wrapper
+  - Pointer wrapper
 # 
 
 
@@ -41,6 +42,7 @@ Helveta is an open-source project that appreciates contribution. You can contrib
 - memory.hh [ WINAPI Memory Read/Write Handler improvement ]
 - process.cc [ Process/Handle wrapper ]
 - process.hh [ Process/Handle wrapper ]
+- pointer.hh [ Pointer wrapper ]
 
 @swoopae
 - matrix.hh [ Matrix class base ]
