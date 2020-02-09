@@ -1,5 +1,3 @@
-#include "../helveta/initializer.hh"
-
 int main() {
 
   // we are going to initialize our colors
