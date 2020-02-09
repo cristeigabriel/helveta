@@ -38,4 +38,4 @@ constexpr float PI = 3.141593f;
 
 // TODO: make this optional?
 #include "memory/process.hh"
-// #include "memory/pointer.hh" - waiting for t0b1 to fix
+#include "memory/pointer.hh"
