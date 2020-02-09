@@ -40,13 +40,14 @@ struct vec3_t {
   constexpr T length_squared() noexcept {
 
     // return length
-    return sqrt((this->x * this->x) + (this->y * this->y));
+    return (this->x * this->x) + (this->y * this->y) + (this->z * this->z);
   }
 
   constexpr T length() noexcept {
 
     // return length sqr
-    return (this->x * this->x) + (this->y * this->y);
+    return std::sqrt((this->x * this->x) + (this->y * this->y) +
+                     (this->z * this->z));
   }
 
   constexpr T distance(const vec3_t &rhs) noexcept {
@@ -206,7 +207,13 @@ struct vec2_t {
   constexpr T length() noexcept {
 
     // return length
-    return sqrt((this->x * this->x) + (this->y * this->y));
+    return std::sqrt((this->x * this->x) + (this->y * this->y));
+  }
+
+  constexpr T length_squared() noexcept {
+
+    // return length
+    return (this->x * this->x) + (this->y * this->y);
   }
 
   constexpr T distance(const vec2_t &rhs) noexcept {
