@@ -25,7 +25,7 @@ struct handle_wrapper {
   handle_wrapper(const handle_wrapper &) = delete;
   handle_wrapper &operator=(const handle_wrapper &) = delete;
 
-  [[nodiscard]] HANDLE get() const { return _handle; }
+  HANDLE get() const { return _handle; }
 
 protected:
   HANDLE _handle;
