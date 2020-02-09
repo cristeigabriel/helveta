@@ -111,6 +111,12 @@ public:
 
   [[nodiscard]] const auto &module_list() const noexcept { return _mod_list; }
 
+  template <typename = std::enable_if_t<config::GLOBAL_PROCESS_INSTANCE, int>>
+  static process &get() {
+    static process inst{};
+    return inst;
+  }
+
 private:
   void update_arch();
   void init_module_list();
