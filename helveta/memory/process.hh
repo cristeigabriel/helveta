@@ -67,7 +67,7 @@ public:
     _mod_list.clear();
   }
 
-  [[nodiscard]] std::uintptr_t find_module(std::string_view name);
+  std::uintptr_t find_module(std::string_view name);
 
   // Memory Operations
 
