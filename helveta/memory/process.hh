@@ -67,7 +67,7 @@ public:
     _mod_list.clear();
   }
 
-  [[nodiscard]] std::uintptr_t find_module(std::string_view name);
+  std::uintptr_t find_module(std::string_view name);
 
   // Memory Operations
 
@@ -105,11 +105,11 @@ public:
   }
 
   // getter
-  [[nodiscard]] HANDLE        handle() const noexcept { return _handle; }
-  [[nodiscard]] std::uint32_t id() const noexcept { return _id; }
-  [[nodiscard]] bool          x64() const noexcept { return _x64; }
+  HANDLE        handle() const noexcept { return _handle; }
+  std::uint32_t id() const noexcept { return _id; }
+  bool          x64() const noexcept { return _x64; }
 
-  [[nodiscard]] const auto &module_list() const noexcept { return _mod_list; }
+  const auto &module_list() const noexcept { return _mod_list; }
 
   template <bool enable = config::GLOBAL_PROCESS_INSTANCE>
   static process &get(typename std::enable_if_t<enable, int> = 0) {
