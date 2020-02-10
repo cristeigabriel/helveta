@@ -48,8 +48,13 @@ public:
     return static_cast<derived_type &>(*this);
   }
 
-  // TODO: make it "const type val" for fundamental types?
+  template <typename = std::enable_if_t<!std::is_fundamental_v<type>, int>>
   bool write(const HANDLE handle, const type &val) {
+    return memory::write(handle, this->_addr, val);
+  }
+
+  template <typename = std::enable_if_t<std::is_fundamental_v<type>, int>>
+  bool write(const HANDLE handle, const type val) {
     return memory::write(handle, this->_addr, val);
   }
 
@@ -146,8 +151,13 @@ public:
   explicit crtp_global_ptr_base(const typename base::pointer_type addr)
       : base{addr} {}
 
-  // TODO: make it "const type val" for fundamental types?
+  template <typename = std::enable_if_t<!std::is_fundamental_v<type>, int>>
   bool write(const type &val) {
+    return process::get<true>().write(this->_addr, val);
+  }
+
+  template <typename = std::enable_if_t<std::is_fundamental_v<type>, int>>
+  bool write(const type val) {
     return process::get<true>().write(this->_addr, val);
   }
 
@@ -213,8 +223,8 @@ public:
 
   explicit global_ptr(const typename base::pointer_type addr) : base{addr} {}
 
-  // i dont understand why i need this here...
   global_ptr<type, x64> &operator=(const type &val) {
+    // i dont understand why i need this here...
     this->write(val);
     return *this;
   }
@@ -336,8 +346,8 @@ public:
   }
 
   bool read_str_buf(char_type *buf, const std::size_t size) const {
-    return memory::read(process::get<true>().handle(), this->_addr, buf,
-                        size * sizeof(char_type));
+    return process::get<true>().read(this->_addr, buf,
+                                     size * sizeof(char_type));
   }
 
   template <std::size_t len>
