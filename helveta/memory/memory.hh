@@ -61,5 +61,130 @@ bool write(const HANDLE process_handle, const std::uintptr_t address,
 
   return write(process_handle, address, std::addressof(var), sizeof(type));
 }
+
+/**
+ * \brief Finds a signature in a data range
+ * \param data pointer to array of bytes that is to be searched
+ * \param size size of the data array in bytes
+ * \param sig pointer to array of bytes that is searched for
+ * \param sig_len size of sig array in bytes
+ * \param mask pointer to array of bools that controls whether a byte in the signature is compared
+ * \return offset from data start when found, otherwise nothing
+ */
+inline std::optional<std::uintptr_t> find_sig_in_data(const std::uint8_t *data,
+                                                      const std::size_t   size,
+                                                      const std::uint8_t *sig,
+                                                      const size_t sig_len,
+                                                      const bool * mask) {
+  // TODO: write optimization for array/vector of bool which can use bitfields?
+  const auto it = std::search(
+      data, data + size,
+      std::default_searcher(sig, sig + sig_len,
+                            [sig, mask](const auto b1, const auto &b2) {
+                              return (!mask[&b2 - &sig[0]]) || (b1 == b2);
+                            }));
+
+  if (it == (data + size)) return {};
+
+  return (it - data);
+}
+
+/**
+ * \brief Finds a signature in a data range
+ * \tparam data_arr_type array type that implements .data(), .size() and ::value_type
+ * \tparam sig_arr_type array type that implements .data(), .size() and ::value_type
+ * \tparam mask_arr_type array type that implements ::value_type and ::value_type == bool
+ * \param data array of data that is to be searched
+ * \param sig array of data that is searched for
+ * \param mask array of bools that controls whether a byte(!!) index in the signature should be compared
+ * \return offset from data start when found, otherwise nothing
+ */
+template <typename data_arr_type, typename sig_arr_type, typename mask_arr_type>
+std::optional<std::uintptr_t> find_sig_in_data(const data_arr_type &data,
+                                               const sig_arr_type & sig,
+                                               const mask_arr_type &mask) {
+  static_assert(std::is_same_v<typename mask_arr_type::value_type, bool>);
+  return find_sig_in_data(
+      reinterpret_cast<const std::uint8_t *>(data.data()),
+      data.size() * sizeof(typename data_arr_type::value_type),
+      reinterpret_cast<const std::uint8_t *>(sig.data()),
+      sig.size() * sizeof(typename sig_arr_type::value_type), mask.data());
+}
+
+/**
+ * \brief Finds a signature in a data range ignoring zero-bytes in the signature
+ * \param data pointer to array of bytes that is to be searched
+ * \param size size of the data array in bytes
+ * \param sig pointer to array of bytes that is searched for
+ * \param sig_len size of sig array in bytes
+ * \return offset from data start when found, otherwise nothing
+ */
+inline std::optional<std::uintptr_t> find_sig_in_data(const std::uint8_t *data,
+                                                      const std::size_t   size,
+                                                      const std::uint8_t *sig,
+                                                      const size_t sig_len) {
+  const auto it =
+      std::search(data, data + size,
+                  std::default_searcher(sig, sig + sig_len,
+                                        [](const auto b1, const auto b2) {
+                                          return (b1 == b2) || (b2 == 0u);
+                                        }));
+
+  if (it == (data + size)) return {};
+
+  return (it - data);
+}
+
+// array type must have ::value_type defined
+template <typename data_arr_type, typename sig_arr_type>
+std::optional<std::uintptr_t> find_sig_in_data(const data_arr_type &data,
+                                               const sig_arr_type & sig) {
+  return find_sig_in_data(
+      reinterpret_cast<std::uint8_t *>(data.data()),
+      data.size() * sizeof(typename data_arr_type::value_type),
+      reinterpret_cast<const std::uint8_t *>(sig.data()),
+      sig.size() * sizeof(typename sig_arr_type::value_type));
+}
+
+/**
+ * \brief Finds a signature in a data range using a code-style pattern
+ * \param data pointer to array of bytes that is to be searched
+ * \param size size of the data array in bytes
+ * \param sig string_view that contains the bytes to be searched for (can contain zero-bytes)
+ * \param mask mask that controls whether a byte in the sig should be compared ('?' means ignore byte)
+ * \return offset from data start when found, otherwise nothing
+ */
+inline std::optional<std::uintptr_t>
+find_sig_in_data(const std::uint8_t *data, const std::size_t size,
+                 const std::string_view sig, const std::string_view mask) {
+  const auto it = std::search(
+      data, data + size,
+      std::default_searcher(sig.begin(), sig.end(),
+                            [sig, mask](const auto b1, const auto &b2) {
+                              return (mask[&b2 - &sig[0]] == '?') || (b1 == b2);
+                            }));
+
+  if (it == (data + size)) return {};
+
+  return (it - data);
+}
+
+/**
+ * \brief Finds a signature in a data range using a code-style pattern
+ * \tparam data_arr_type array type that implements .data(), .size() and ::value_type
+ * \param data array of data that is to be searched
+ * \param sig string_view that contains the bytes to be searched for (can contain zero-bytes)
+ * \param mask mask that controls whether a byte in the sig should be compared ('?' means ignore byte)
+ * \return offset from data start when found, otherwise nothing
+ */
+template <typename data_arr_type>
+std::optional<std::uintptr_t> find_sig_in_data(const data_arr_type &  data,
+                                               const std::string_view sig,
+                                               const std::string_view mask) {
+  return find_sig_in_data(
+      reinterpret_cast<const std::uint8_t *>(data.data()),
+      data.size() * sizeof(typename data_arr_type::value_type), sig, mask);
+}
+
 } // namespace memory
 } // namespace helveta
