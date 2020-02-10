@@ -25,6 +25,7 @@ constexpr float PI = 3.141593f;
 #include <optional>
 #include <vector>
 #include <stdexcept>
+#include <functional>
 
 // config
 #include "config.hh"

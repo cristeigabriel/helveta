@@ -196,7 +196,7 @@ public:
   }
 
   derived_type &operator=(const type &val) {
-    write(val);
+    this->write(val);
     return static_cast<derived_type &>(*this);
   }
 };
@@ -215,7 +215,7 @@ public:
 
   // i dont understand why i need this here...
   global_ptr<type, x64> &operator=(const type &val) {
-    write(val);
+    this->write(val);
     return *this;
   }
 };
