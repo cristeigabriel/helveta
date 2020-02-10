@@ -27,6 +27,7 @@
   - External Read/Write handler/wrapper
   - Process/Handle wrapper
   - Pointer wrapper
+  - Signature scanning
 # 
 
 
@@ -45,7 +46,7 @@ The example folder holds an example for mostly every function. These will be lin
 ### ❤️ Contributors:
 #
 @T0b1-iOS 
-- memory.hh [ WINAPI Memory Read/Write Handler improvement ]
+- memory.hh [ WINAPI Memory Read/Write Handler improvement, signature scanning]
 - process.cc [ Process/Handle wrapper ]
 - process.hh [ Process/Handle wrapper ]
 - pointer.hh [ Pointer wrapper ]
