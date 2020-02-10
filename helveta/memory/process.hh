@@ -20,19 +20,25 @@ namespace helveta {
 namespace memory {
 
 class process {
+public:
   struct module_t {
     fnv::hash_type name_hash;
     std::uintptr_t addr;
     std::size_t    size;
   };
 
-public:
   process() = default;
   ~process() {
 
     if (_handle && !_custom_handle) CloseHandle(_handle);
   }
 
+  /**
+   * \brief Attach to a process with a user-provided handle
+   * When this function is used to attach the handle will not be closed automatically when detached
+   * \param handle Handle to process
+   * \param id PID of process
+   */
   void attach(const HANDLE handle, const std::uint32_t id) {
 
     _custom_handle = true;
@@ -41,6 +47,11 @@ public:
     update_arch();
   }
 
+  /**
+   * \brief Attach to a process using its PID
+   * \param id PID of process
+   * \return true when attach succeeded
+   */
   bool attach(const std::uint32_t id) {
 
     _handle = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_OPERATION |
@@ -55,7 +66,21 @@ public:
     return true;
   }
 
-  bool attach(const std::string_view name);
+  /**
+   * \brief Attach to a process using its name hash
+   * \param name_hash FNV-1A Hash of the process' name
+   * \return true when attach succeeded
+   */
+  bool attach_hash(fnv::hash_type name_hash);
+
+  /**
+   * \brief Attach to a process using its name
+   * \param name Name of the process
+   * \return true when attach succeeded
+   */
+  bool attach(const std::string_view name) {
+    return attach_hash(fnv::hash_view(name));
+  }
 
   void detach() {
 
@@ -67,7 +92,21 @@ public:
     _mod_list.clear();
   }
 
-  std::uintptr_t find_module(std::string_view name);
+  /**
+   * \brief Find a module using its name hash
+   * \param name_hash  FNV-1A Hash of the modules' name
+   * \return module_t info structure when found otherwise nothing
+   */
+  std::optional<module_t> find_module(fnv::hash_type name_hash);
+
+  /**
+   * \brief Find a module using its name
+   * \param name Name of the module
+   * \return module_t info structure when found otherwise nothing
+   */
+  std::optional<module_t> find_module(const std::string_view name) {
+    return find_module(fnv::hash_view(name));
+  }
 
   // Memory Operations
 
@@ -87,20 +126,24 @@ public:
 
   template <typename type>
   bool read(const std::uintptr_t address, type &var) const {
-
     return read(address, std::addressof(var), sizeof(type));
   }
 
   // read not null
   template <typename type>
   bool read_nn(const std::uintptr_t address, type &var) const {
-
     return read(address, std::addressof(var), sizeof(type)) && (var != 0);
   }
 
-  template <typename type>
+  template <typename type,
+            typename = std::enable_if_t<!std::is_fundamental_v<type>, int>>
   bool write(const std::uintptr_t address, const type &var) const {
+    return write(address, std::addressof(var), sizeof(type));
+  }
 
+  template <typename type,
+            typename = std::enable_if_t<std::is_fundamental_v<type>, int>>
+  bool write(const std::uintptr_t address, const type var) const {
     return write(address, std::addressof(var), sizeof(type));
   }
 
