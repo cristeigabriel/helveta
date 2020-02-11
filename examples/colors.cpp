@@ -18,7 +18,7 @@ int main() {
   // we are going to get the saturation of color, _color and __color
   std::cout << "color : " << color.saturation()
             << " _color : " << _color.saturation()
-            << " __color : " << __color.hue() << std::endl;
+            << " __color : " << __color.saturation() << std::endl;
 
   // we are going to print the alpha of color, _color and __color
   std::cout << "color : " << color.a << " _color : " << _color.a
