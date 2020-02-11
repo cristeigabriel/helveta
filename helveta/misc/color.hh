@@ -154,18 +154,6 @@ struct color_t {
     // return value handled as array of results into a new color
     return *this;
   }
-
-  // handle arrays
-  const std::uint8_t &operator[](std::uint8_t index) {
-
-#ifdef DEBUG
-    assert(index <= 3, "INDEX out of range");
-#endif
-    if (index > 3) { throw std::exception("INDEX out of range"); }
-
-    // (datatype)pointer + index
-    return *(reinterpret_cast<std::uint8_t *>(this) + index);
-  }
 };
 } // namespace color
 } // namespace helveta
