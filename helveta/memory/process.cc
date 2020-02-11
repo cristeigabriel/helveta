@@ -31,7 +31,7 @@ protected:
   HANDLE _handle;
 };
 
-bool process::attach(const std::string_view name) {
+bool process::attach_hash(const fnv::hash_type name_hash) {
 
   const handle_wrapper snap_handle =
       handle_wrapper{CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0)};
@@ -41,7 +41,6 @@ bool process::attach(const std::string_view name) {
 
   if (!Process32First(snap_handle.get(), &proc_entry)) return false;
 
-  const auto name_hash = fnv::hash_view(name);
   do {
 
     const auto proc_name = std::string_view{proc_entry.szExeFile};
@@ -54,19 +53,18 @@ bool process::attach(const std::string_view name) {
   return false;
 }
 
-std::uintptr_t process::find_module(const std::string_view name) {
+std::optional<process::module_t>
+process::find_module(const fnv::hash_type name_hash) {
 
   if (_mod_list.empty()) init_module_list();
-
-  const auto name_hash = fnv::hash_view(name);
 
   for (const auto &module : _mod_list) {
     if (module.name_hash != name_hash) continue;
 
-    return module.addr;
+    return module;
   }
 
-  return 0u;
+  return {};
 }
 
 void process::update_arch() {

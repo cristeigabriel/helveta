@@ -10,7 +10,6 @@
 
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
-#include <memory>
 #include <windows.h>
 #undef NOMINMAX
 #undef WIN32_LEAN_AND_MEAN
@@ -76,7 +75,6 @@ inline std::optional<std::uintptr_t> find_sig_in_data(const std::uint8_t *data,
                                                       const std::uint8_t *sig,
                                                       const size_t sig_len,
                                                       const bool * mask) {
-  // TODO: write optimization for array/vector of bool which can use bitfields?
   const auto it = std::search(
       data, data + size,
       std::default_searcher(sig, sig + sig_len,
@@ -91,24 +89,31 @@ inline std::optional<std::uintptr_t> find_sig_in_data(const std::uint8_t *data,
 
 /**
  * \brief Finds a signature in a data range
- * \tparam data_arr_type array type that implements .data(), .size() and ::value_type
- * \tparam sig_arr_type array type that implements .data(), .size() and ::value_type
- * \tparam mask_arr_type array type that implements ::value_type and ::value_type == bool
+ * \tparam data_arr_type array type that implements begin/end
+ * \tparam sig_arr_type array type that implements begin/end and ::value_type
+ * (should ideally be the same type as the data or at least the same element byte size)
+ * \tparam mask_arr_type array type that implements operator[]
  * \param data array of data that is to be searched
  * \param sig array of data that is searched for
- * \param mask array of bools that controls whether a byte(!!) index in the signature should be compared
+ * \param mask array of type that is comparable to 0
  * \return offset from data start when found, otherwise nothing
  */
 template <typename data_arr_type, typename sig_arr_type, typename mask_arr_type>
 std::optional<std::uintptr_t> find_sig_in_data(const data_arr_type &data,
                                                const sig_arr_type & sig,
                                                const mask_arr_type &mask) {
-  static_assert(std::is_same_v<typename mask_arr_type::value_type, bool>);
-  return find_sig_in_data(
-      reinterpret_cast<const std::uint8_t *>(data.data()),
-      data.size() * sizeof(typename data_arr_type::value_type),
-      reinterpret_cast<const std::uint8_t *>(sig.data()),
-      sig.size() * sizeof(typename sig_arr_type::value_type), mask.data());
+  const auto it = std::search(
+      data.begin(), data.end(),
+      std::default_searcher(
+          sig.begin(), sig.end(), [sig, mask](const auto b1, const auto &b2) {
+            return (!mask[(&b2 - &sig[0]) /
+                          sizeof(typename sig_arr_type::value_type)]) ||
+                   (b1 == b2);
+          }));
+
+  if (it == data.end()) return {};
+
+  return (it - data.begin());
 }
 
 /**
@@ -135,15 +140,27 @@ inline std::optional<std::uintptr_t> find_sig_in_data(const std::uint8_t *data,
   return (it - data);
 }
 
-// array type must have ::value_type defined
+/**
+ * \brief Finds a signature in a data range ignoring zero-bytes in the signature
+ * \tparam data_arr_type array type that implements begin/end
+ * \tparam sig_arr_type array type that implements begin/end
+ * \param data array of data that is to be searched
+ * \param sig array of data that is searched for
+ * \return offset from data start when found, otherwise nothing
+ */
 template <typename data_arr_type, typename sig_arr_type>
 std::optional<std::uintptr_t> find_sig_in_data(const data_arr_type &data,
                                                const sig_arr_type & sig) {
-  return find_sig_in_data(
-      reinterpret_cast<std::uint8_t *>(data.data()),
-      data.size() * sizeof(typename data_arr_type::value_type),
-      reinterpret_cast<const std::uint8_t *>(sig.data()),
-      sig.size() * sizeof(typename sig_arr_type::value_type));
+  const auto it =
+      std::search(data.begin(), data.end(),
+                  std::default_searcher(sig.begin(), sig.end(),
+                                        [](const auto b1, const auto b2) {
+                                          return (b1 == b2) || (b2 == 0u);
+                                        }));
+
+  if (it == data.end()) return {};
+
+  return (it - data.begin());
 }
 
 /**
