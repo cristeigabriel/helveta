@@ -12,20 +12,18 @@ namespace helveta {
 
 namespace color {
 
-template <class T>
 struct color_t {
 
-  T r, g, b, a;
+  std::uint8_t r, g, b, a;
 
-  static_assert(std::is_arithmetic<T>::value, "T must be numeric");
-
-  constexpr color_t() = default;
-  constexpr color_t(const T _r, const T _g, const T _b)
+  constexpr color_t(const std::uint8_t _r, const std::uint8_t _g,
+                    const std::uint8_t _b)
       : r(_r), g(_g), b(_b), a(255) {}
-  constexpr color_t(const T _r, const T _g, const T _b, const T _a)
+  constexpr color_t(const std::uint8_t _r, const std::uint8_t _g,
+                    const std::uint8_t _b, const std::uint8_t _a)
       : r(_r), g(_g), b(_b), a(_a) {}
-  constexpr color_t(const color_t &col, const T _a)
-      : r(col->r), g(col->g), b(col->b), a(_a) {}
+  constexpr color_t(const color_t &col, const std::uint8_t _a)
+      : r(col.r), g(col.g), b(col.b), a(_a) {}
 
   float hue() const noexcept {
 
@@ -144,86 +142,6 @@ struct color_t {
                    static_cast<unsigned char>(q * 255));
   }
 
-  // handle adding
-  constexpr color_t &operator+(const color_t &rhs) noexcept {
-
-    // return value handled as array of results into a new color
-    return color_t(this->r + rhs.r, this->g + rhs.g, this->b + rhs.b,
-                   this->a + rhs.a);
-  }
-
-  // handle substracting
-  constexpr color_t &operator-(const color_t &rhs) noexcept {
-
-    // return value handled as array of results into a new color
-    return color_t(this->r - rhs.r, this->g - rhs.g, this->b - rhs.b,
-                   this->a - rhs.a);
-  }
-
-  // handle multiplying
-  constexpr color_t &operator*(const T &rhs) noexcept {
-
-    // we return a new color with our new values
-    return color_t(this->r * rhs.r, this->g * rhs.g, this->b * rhs.b,
-                   this->a * rhs.a);
-  }
-
-  // handle divisions
-  constexpr color_t &operator/(const T &rhs) noexcept {
-
-    // we return a new color with our new values
-    return color_t(this->r / rhs.r, this->g / rhs.g, this->b / rhs.b,
-                   this->a / rhs.a);
-  }
-
-  // handle adding to result
-  const color_t &operator+=(const color_t &rhs) noexcept {
-
-    this->r += rhs.r;
-    this->g += rhs.g;
-    this->b += rhs.b;
-    this->a += rhs.a;
-
-    // return value handled as array of results into a new color
-    return *this;
-  }
-
-  // handle substracting to result
-  constexpr color_t &operator-=(const color_t &rhs) noexcept {
-
-    this->r -= rhs.r;
-    this->g -= rhs.g;
-    this->b -= rhs.b;
-    this->a -= rhs.a;
-
-    // return value handled as array of results into a new color
-    return *this;
-  }
-
-  // handle multiplying to result
-  constexpr color_t &operator*=(const T &rhs) noexcept {
-
-    this->r *= rhs.r;
-    this->g *= rhs.g;
-    this->b *= rhs.b;
-    this->a *= rhs.a;
-
-    // return value handled as array of results into a new color
-    return *this;
-  }
-
-  // handle dividing to result
-  constexpr color_t &operator/=(const T &rhs) noexcept {
-
-    this->r /= rhs.r;
-    this->g /= rhs.g;
-    this->b /= rhs.b;
-    this->a /= rhs.a;
-
-    // return value handled as array of results into a new color
-    return *this;
-  }
-
   // handle assigning
   constexpr color_t &operator=(const color_t &rhs) {
 
@@ -238,15 +156,15 @@ struct color_t {
   }
 
   // handle arrays
-  constexpr T &operator[](std::size_t index) {
+  const std::uint8_t &operator[](std::uint8_t index) {
 
 #ifdef DEBUG
     assert(index <= 3, "INDEX out of range");
 #endif
     if (index > 3) { throw std::exception("INDEX out of range"); }
-  	
+
     // (datatype)pointer + index
-    return *(reinterpret_cast<T *>(this) + index);
+    return *(reinterpret_cast<std::uint8_t *>(this) + index);
   }
 };
 } // namespace color
