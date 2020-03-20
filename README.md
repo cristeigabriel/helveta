@@ -1,5 +1,5 @@
 ### ❓ Helveta is an all-purpose Windows library, includes math functions, game-hacking functions and utilitarian functions. Written on the latest language standard, on Visual Studio Professional 2019.
-
+## Currently discontinued, for a project alike please check <a href="https://github.com/neg4n/nmu">this</a> for a project that serves the same purpose. 
 <p align="center">
   <img src="https://forthebadge.com/images/badges/made-with-c-plus-plus.svg" /> <img src="https://forthebadge.com/images/badges/built-with-love.svg" />
 </p>
